@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks - HomeSphere</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // JavaScript function to add a task dynamically
+    function addTask(event) {
+      event.preventDefault(); // Prevent form submission (page refresh)
+
+      const taskInput = document.getElementById("taskInput");
+      const assignSelect = document.getElementById("assignedTo");
+
+      // Get task and assigned member
+      const task = taskInput.value.trim();
+      const assignedTo = assignSelect.value;
+
+      // Check if both task and assigned member are provided
+      if (task && assignedTo) {
+        // Create task list item dynamically
+        const taskList = document.getElementById("taskList");
+        const taskItem = document.createElement("div");
+        taskItem.classList.add("flex", "items-center", "justify-between", "p-4", "border", "border-gray-200", "rounded-lg");
+
+        // Add checkbox and task name
+        taskItem.innerHTML = `
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" class="w-4 h-4 text-[#994d00]" />
+            <label class="text-gray-700">${task}</label>
+          </div>
+          <div class="text-gray-500">Assigned to: ${assignedTo}</div>
+        `;
+
+        // Append the new task item to the task list
+        taskList.appendChild(taskItem);
+
+        // Clear input fields after adding the task
+        taskInput.value = "";
+        assignSelect.value = "";
+      } else {
+        alert("Please fill in both task and assignment.");
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f7e5d4] min-h-screen">
+
+  <!-- Navbar -->
+    <nav style="background-color: #994d00;" class="text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo and Title -->
+        <div class="flex items-center">
+            <img src="logo.png" alt="HomeSphere Logo" class="w-12 h-12 mr-2">
+            <h1 class="text-2xl font-bold">Homsphere</h1>
+        </div>
+        <!-- Navbar Links -->
+        <div>
+            <a href="Homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
+            <a href="task.html" class="px-3 py-2 hover:opacity-80 rounded">Tasks</a>
+            <a href="finance.html" class="px-3 py-2 hover:opacity-80 rounded">Finance</a>
+            <a href="#profile" class="px-3 py-2 hover:opacity-80 rounded">Profile</a>
+        </div>
+    </div>
+</nav>
+
+
+  <div class="max-w-4xl mx-auto mt-8 px-4">
+    <!-- Task List Section -->
+    <div class="bg-white shadow-lg rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-[#994d00] mb-4"> To-Do List</h2>
+      
+      <!-- Add Task Form -->
+      <form onsubmit="addTask(event)" class="flex flex-col space-y-4 mb-6">
+        <div class="flex items-center space-x-4">
+          <input 
+            type="text" 
+            id="taskInput" 
+            name="task" 
+            placeholder="Enter a new task" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#994d00]"
+            required
+          />
+        </div>
+        
+        <!-- Assign Task Dropdown -->
+        <div class="flex items-center space-x-4">
+          <label for="assignedTo" class="font-medium text-gray-700">Assign to:</label>
+          <select 
+            id="assignedTo" 
+            name="assignedTo" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#994d00]" 
+            required
+          >
+            <option value="">Select a family member</option>
+            <option value="John">John</option>
+            <option value="Emma">Emma</option>
+            <option value="Sophia">Sophia</option>
+            <option value="Mike">Mike</option>
+            <!-- Add more family members as needed -->
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="bg-[#994d00] text-white px-6 py-2 rounded-lg">
+          Add Task
+        </button>
+      </form>
+
+      <!-- Task List -->
+      <div id="taskList" class="space-y-4">
+        <!-- Example Task -->
+        <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" class="w-4 h-4 text-[#994d00]" />
+            <label class="text-gray-700">Take out the trash</label>
+          </div>
+          <div class="text-gray-500">Assigned to: John</div>
+        </div>
+
+        <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" class="w-4 h-4 text-[#994d00]" />
+            <label class="text-gray-700">Wash the dishes</label>
+          </div>
+          <div class="text-gray-500">Assigned to: Emma</div>
+        </div>
+
+        <!-- More tasks can be dynamically added here -->
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="text-center text-gray-600 mt-8">
+      <p>&copy; 2025 HomeSphere. All rights reserved.</p>
+    </footer>
+  </div>
+
+</body>
+</html>

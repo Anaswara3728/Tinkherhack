@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Homsphere</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        .feature-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-box h4 {
+            color: #994d00;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
+    <nav style="background-color: #994d00;" class="text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo and Title -->
+        <div class="flex items-center">
+            <img src="logo.png" alt="HomeSphere Logo" class="w-12 h-12 mr-2">
+            <h1 class="text-2xl font-bold">Homsphere</h1>
+        </div>
+        <!-- Navbar Links -->
+        <div>
+            <a href="Homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
+            <a href="task.html" class="px-3 py-2 hover:opacity-80 rounded">Tasks</a>
+            <a href="finance.html" class="px-3 py-2 hover:opacity-80 rounded">Finance</a>
+            <a href="#profile" class="px-3 py-2 hover:opacity-80 rounded">Profile</a>
+        </div>
+    </div>
+</nav>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="py-10">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-6">Dashboard</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Task Management -->
+                <div class="feature-box">
+                    <h4 class="text-xl font-bold mb-3">Task Management</h4>
+                    <p>Assign and track household and parenting tasks collaboratively.</p>
+                    <a href="task.html" class="text-white px-4 py-2 mt-4 inline-block rounded" style="background-color: #994d00;">
+                        Go to Tasks
+                    </a>
+                </div>
+                
+                <!-- Child Activity Monitoring -->
+                <div class="feature-box">
+                    <h4 class="text-xl font-bold mb-3">Event & Child Activity Monitoring</h4>
+                    <p>Keep track of school events, meetings, and deadlines with ease.</p>
+                    <a href="event.html" class="text-white px-4 py-2 mt-4 inline-block rounded" style="background-color: #994d00;">
+                        Monitor Activities
+                    </a>
+                </div>
+                
+                <!-- Financial Planning -->
+                <div class="feature-box">
+                    <h4 class="text-xl font-bold mb-3">Financial Planning</h4>
+                    <p>Plan your family budget and track expenses seamlessly.</p>
+                    <a href="finance.html" class="text-white px-4 py-2 mt-4 inline-block rounded" style="background-color: #994d00;">
+                        Manage Finances
+                    </a>
+                </div>
+                
+                <!-- Meal Planning -->
+                <div class="feature-box">
+                    <h4 class="text-xl font-bold mb-3">Meal Planning</h4>
+                    <p>Plan weekly meals for your family effortlessly.</p>
+                    <a href="meal-planning.html" class="text-white px-4 py-2 mt-4 inline-block rounded" style="background-color: #994d00;">
+                        Plan Meals
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #6a3e15;" class="text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>© 2025 Homesphere. All rights reserved.</p>
+            <p class="mt-2">Designed for families, by families.</p>
+        </div>
+    </footer>
+</body>
+</html>

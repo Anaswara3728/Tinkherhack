@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Finance - HomeSphere</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        .finance-background {
+            position: relative;
+            padding: 50px 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .finance-background .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+
+        .feature-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .finance-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script>
+        // Function to load finance data from localStorage
+        function loadFinanceData() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const financeContainer = document.getElementById('financeContainer');
+
+            months.forEach(month => {
+                const income = localStorage.getItem(`${month}_income`) || '0';
+                const expenses = localStorage.getItem(`${month}_expenses`) || '0';
+                const groceries = localStorage.getItem(`${month}_groceries`) || '0';
+                const rent = localStorage.getItem(`${month}_rent`) || '0';
+                const utilities = localStorage.getItem(`${month}_utilities`) || '0';
+                const savings = localStorage.getItem(`${month}_savings`) || '0';
+
+                // Create a card for each month
+                const monthCard = `
+                    <div class="finance-card mb-4">
+                        <h3 class="text-2xl font-bold">${month}</h3>
+                        <p><strong>Income:</strong> $${income}</p>
+                        <p><strong>Expenses:</strong> $${expenses}</p>
+                        <p><strong>Groceries:</strong> $${groceries}</p>
+                        <p><strong>Rent:</strong> $${rent}</p>
+                        <p><strong>Utilities:</strong> $${utilities}</p>
+                        <p><strong>Savings:</strong> $${savings}</p>
+                        <a href="updatefinance.html?month=${month}" class="text-blue-500">Edit</a>
+                    </div>
+                `;
+
+                financeContainer.innerHTML += monthCard;
+            });
+        }
+
+        // Call the function to load data when the page loads
+        window.onload = loadFinanceData;
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav style="background-color: #994d00;" class="text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo and Title -->
+            <div class="flex items-center">
+                <img src="logo.png" alt="HomeSphere Logo" class="w-12 h-12 mr-2">
+                <h1 class="text-2xl font-bold">Homesphere</h1>
+            </div>
+            <!-- Navbar Links -->
+            <div>
+                <a href="Homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
+                <a href="dashboard.html" class="px-3 py-2 hover:opacity-80 rounded">Dashboard</a>
+                <a href="finance.html" class="px-3 py-2 hover:opacity-80 rounded">Finance</a>
+                <a href="#profile" class="px-3 py-2 hover:opacity-80 rounded">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Monthly Finance Section -->
+    <section class="finance-background" style="background-color:#f7e5d4;">
+        <div class="container mx-auto text-center py-10">
+            <h2 class="text-4xl font-bold mb-4">Monthly Finance Details</h2>
+            <p class="text-lg text-gray-700 mb-6">Keep track of your income, expenses, and budget for the month.</p>
+
+            <!-- Income & Expenses Overview -->
+            <div class="grid grid-cols-2 gap-6" id="financeContainer">
+                <!-- Finance cards will be injected here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #994d00;" class="text-white p-4 text-center">
+        <p>&copy; 2025 HomeSphere. All rights reserved.</p>
+    </footer>
+</body>
+</html>

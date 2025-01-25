@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Event Calendar</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7e5d4;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #994d00;
+        padding: 20px;
+        text-align: center;
+        color: white;
+    }
+
+    header .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    header .logo img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    main {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+    }
+
+    .calendar-container {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+        max-width: 800px;
+    }
+
+    .calendar-container .day {
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    .calendar-container .day:nth-child(n+1):nth-child(-n+7) {
+        background-color: #f7e5d4; /* Background for empty cells */
+    }
+
+    .calendar-container .day .events {
+        position: absolute;
+        bottom: 5px;
+        width: 100%;
+        text-align: left;
+        font-size: 0.9rem;
+        color: #ff6600;
+    }
+
+    .event-mark {
+        background-color: red;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        margin: 0 auto;
+        cursor: pointer;
+        position: relative;
+    }
+
+    /* Improved Tooltip styling */
+    .event-tooltip {
+        display: none;
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 1rem;
+        max-width: 200px;
+        white-space: normal;
+        word-wrap: break-word;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .event-mark:hover .event-tooltip {
+        display: block;
+        opacity: 1;
+    }
+
+    .event-form {
+        max-width: 400px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .event-form input, .event-form textarea, .event-form button {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    footer {
+        background-color: #994d00;
+        padding: 10px;
+        text-align: center;
+        color: white;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+    }
+  </style>
+</head>
+<body>
+   <!-- Navbar -->
+    <nav style="background-color: #994d00;" class="text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo and Title -->
+            <div class="flex items-center">
+                <img src="logo.png" alt="HomeSphere Logo" class="w-12 h-12 mr-2">
+                <h1 class="text-2xl font-bold">Homesphere</h1>
+            </div>
+            <!-- Navbar Links -->
+            <div>
+                <a href="Homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
+                <a href="dashboard.html" class="px-3 py-2 hover:opacity-80 rounded">Dashboard</a>
+                <a href="finance.html" class="px-3 py-2 hover:opacity-80 rounded">Finance</a>
+                <a href="#profile" class="px-3 py-2 hover:opacity-80 rounded">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+
+  <main>
+    <div id="calendar" class="calendar-container">
+      <!-- Calendar will be dynamically generated here -->
+    </div>
+
+    <!-- Form for adding events -->
+    <div class="event-form">
+      <h3>Add New Event</h3>
+      <form id="eventForm">
+        <label for="eventTitle">Event Title:</label>
+        <input type="text" id="eventTitle" required />
+        
+        <label for="eventDate">Event Date:</label>
+        <input type="date" id="eventDate" required />
+        
+        <label for="eventDescription">Event Description:</label>
+        <textarea id="eventDescription" required></textarea>
+        
+        <button type="submit">Add Event</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HomeSphere. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Generate the calendar for the current month
+    const generateCalendar = (month, year) => {
+        const calendarContainer = document.getElementById('calendar');
+        calendarContainer.innerHTML = ''; // Clear previous calendar
+
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        
+        const daysInMonth = lastDay.getDate();
+        const firstWeekday = firstDay.getDay();
+        
+        // Fill empty spaces before the first day of the month
+        for (let i = 0; i < firstWeekday; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.classList.add('day');
+            calendarContainer.appendChild(emptyDay);
+        }
+
+        // Add each day in the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.classList.add('day');
+            dayDiv.textContent = day;
+
+            // Add a container for events on this day
+            const eventsContainer = document.createElement('div');
+            eventsContainer.classList.add('events');
+            dayDiv.appendChild(eventsContainer);
+
+            // Store the date (for adding events later)
+            dayDiv.setAttribute('data-date', `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+
+            calendarContainer.appendChild(dayDiv);
+        }
+    };
+
+    // Event handler for adding new events dynamically
+    const addEvent = (event) => {
+        event.preventDefault();
+        
+        const title = document.getElementById('eventTitle').value;
+        const date = document.getElementById('eventDate').value;
+        const description = document.getElementById('eventDescription').value;
+        
+        // Make sure the date is in the correct format (YYYY-MM-DD)
+        const formattedDate = date; // Since the input type date gives us the date in the correct format
+        
+        // Get the correct day based on the selected date
+        const dayDiv = document.querySelector(`[data-date="${formattedDate}"]`);
+        
+        if (dayDiv) {
+            // Create a red mark to indicate an event
+            const eventMark = document.createElement('div');
+            eventMark.classList.add('event-mark');
+
+            // Create a tooltip to show the event description on hover
+            const eventTooltip = document.createElement('div');
+            eventTooltip.classList.add('event-tooltip');
+            eventTooltip.textContent = description;
+
+            // Append the tooltip to the event mark
+            eventMark.appendChild(eventTooltip);
+            dayDiv.querySelector('.events').appendChild(eventMark);
+        }
+
+        // Clear the form
+        document.getElementById('eventForm').reset();
+    };
+
+    // Initialize the calendar for the current month and year
+    const initCalendar = () => {
+        const today = new Date();
+        generateCalendar(today.getMonth(), today.getFullYear());
+    };
+
+    // Set up event listener for adding events
+    document.getElementById('eventForm').addEventListener('submit', addEvent);
+
+    // Initialize calendar on page load
+    window.onload = initCalendar;
+  </script>
+</body>
+</html>

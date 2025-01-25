@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EquiFam - Family Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        .features-background {
+            position: relative;
+            padding: 50px 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+         .features-background::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('parent.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.5; 
+            z-index: -1; 
+        }
+
+        .features-background .content {
+            position: relative;
+            z-index: 1; 
+            text-align: center;
+            color: white;
+        }
+
+        .feature-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
+    <nav style="background-color: #994d00;" class="text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo and Title -->
+        <div class="flex items-center">
+            <img src="logo.png" alt="HomeSphere Logo" class="w-12 h-12 mr-2">
+            <h1 class="text-2xl font-bold">Homsphere</h1>
+        </div>
+        <!-- Navbar Links -->
+        <div>
+            <a href="Homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
+            <a href="dashboard.html" class="px-3 py-2 hover:opacity-80 rounded">Dashboard</a>
+            <a href="finance.html" class="px-3 py-2 hover:opacity-80 rounded">Finance</a>
+            <a href="#profile" class="px-3 py-2 hover:opacity-80 rounded">Profile</a>
+        </div>
+    </div>
+</nav>
+
+
+    <!-- Hero Section -->
+    <header style="background-color:#f7e5d4;" class=" py-10">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4">Simplify Family Management</h2>
+            <p class="text-lg text-gray-700">Track tasks, monitor child activities, and plan finances together effortlessly.</p>
+            <button style="background-color:#994d00;" class=" text-white px-6 py-3 rounded hover:bg-blue-700">Get Started</button>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features-background">
+        <div class="container mx-auto text-center py-10">
+            <h3 class="text-3xl font-bold text-white mb-8">Features</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="feature-box">
+                    <h4 class="text-xl font-bold mb-3">Task Management</h4>
+                    <p>Assign and track household and parenting tasks collaboratively.</p>
+                </div>
+                <div class="feature-box">
+                    <h4 class="text-xl font-bold mb-3">Child Activity Monitoring</h4>
+                    <p>Keep track of school events, meetings, and deadlines with ease.</p>
+                </div>
+                <div class="feature-box">
+                    <h4 class="text-xl font-bold mb-3">Financial Planning</h4>
+                    <p>Plan your family budget and track expenses seamlessly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section id="dashboard" class="bg-gray-50 py-10">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-bold mb-6">Dashboard Preview</h3>
+            <div class="bg-white p-6 rounded shadow-md">
+                <h4 class="text-2xl font-bold">Today’s Overview</h4>
+                <ul class="mt-4 text-left">
+                    <li class="mb-2">✔️ Complete school project with Alex</li>
+                    <li class="mb-2">✔️ Grocery shopping</li>
+                    <li class="mb-2">✔️ Budget review for January</li>
+                </ul>
+                <button style="background-color:#994d00;"class="text-white px-6 py-3 rounded hover:bg-blue-700">View Full Dashboard</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #6a3e15;" class=" text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>© 2025 Homesphere. All rights reserved.</p>
+            <p class="mt-2">Designed for families, by families.</p>
+        </div>
+    </footer>
+</body>
+</html>
