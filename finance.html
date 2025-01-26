@@ -54,15 +54,16 @@
                 const monthCard = `
                     <div class="finance-card mb-4">
                         <h3 class="text-2xl font-bold">${month}</h3>
-                        <p><strong>Income:</strong> $${income}</p>
-                        <p><strong>Expenses:</strong> $${expenses}</p>
-                        <p><strong>Groceries:</strong> $${groceries}</p>
-                        <p><strong>Rent:</strong> $${rent}</p>
-                        <p><strong>Utilities:</strong> $${utilities}</p>
-                        <p><strong>Savings:</strong> $${savings}</p>
+                        <p><strong>Income:</strong> ₹${income}</p>
+                        <p><strong>Expenses:</strong> ₹${expenses}</p>
+                        <p><strong>Groceries:</strong> ₹${groceries}</p>
+                        <p><strong>Rent:</strong> ₹${rent}</p>
+                        <p><strong>Utilities:</strong> ₹${utilities}</p>
+                        <p><strong>Savings:</strong> ₹${savings}</p>
                         <a href="updatefinance.html?month=${month}" class="text-blue-500">Edit</a>
-                    </div>
-                `;
+                    </div>`;
+
+                
 
                 financeContainer.innerHTML += monthCard;
             });
@@ -86,8 +87,7 @@
             <div>
                 <a href="Homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
                 <a href="dashboard.html" class="px-3 py-2 hover:opacity-80 rounded">Dashboard</a>
-                <a href="finance.html" class="px-3 py-2 hover:opacity-80 rounded">Finance</a>
-                <a href="#profile" class="px-3 py-2 hover:opacity-80 rounded">Profile</a>
+                
             </div>
         </div>
     </nav>
