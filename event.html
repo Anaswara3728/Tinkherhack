@@ -57,10 +57,6 @@
         position: relative;
     }
 
-    .calendar-container .day:nth-child(n+1):nth-child(-n+7) {
-        background-color: #f7e5d4; /* Background for empty cells */
-    }
-
     .calendar-container .day .events {
         position: absolute;
         bottom: 5px;
@@ -80,7 +76,6 @@
         position: relative;
     }
 
-    /* Improved Tooltip styling */
     .event-tooltip {
         display: none;
         position: absolute;
@@ -133,31 +128,18 @@
   </style>
 </head>
 <body>
-   <!-- Navbar -->
-    <nav style="background-color: #994d00;" class="text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo and Title -->
-            <div class="flex items-center">
-                <img src="logo.png" alt="HomeSphere Logo" class="w-12 h-12 mr-2">
-                <h1 class="text-2xl font-bold">Homesphere</h1>
-            </div>
-            <!-- Navbar Links -->
-            <div>
-                <a href="Homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
-                <a href="dashboard.html" class="px-3 py-2 hover:opacity-80 rounded">Dashboard</a>
-                <a href="finance.html" class="px-3 py-2 hover:opacity-80 rounded">Finance</a>
-                <a href="#profile" class="px-3 py-2 hover:opacity-80 rounded">Profile</a>
-            </div>
-        </div>
-    </nav>
-
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="HomeSphere Logo" />
+      <h1>Family Event Calendar</h1>
+    </div>
+  </header>
 
   <main>
     <div id="calendar" class="calendar-container">
       <!-- Calendar will be dynamically generated here -->
     </div>
 
-    <!-- Form for adding events -->
     <div class="event-form">
       <h3>Add New Event</h3>
       <form id="eventForm">
@@ -170,6 +152,9 @@
         <label for="eventDescription">Event Description:</label>
         <textarea id="eventDescription" required></textarea>
         
+        <label for="eventReminderDate">Set Reminder Date:</label>
+        <input type="date" id="eventReminderDate" />
+        
         <button type="submit">Add Event</button>
       </form>
     </div>
@@ -177,89 +162,89 @@
 
   <footer>
     <p>&copy; 2025 HomeSphere. All rights reserved.</p>
+    <button class="go-back-button" onclick="window.location.href='dashboard.html'">Go Back to Dashboard</button>
   </footer>
 
-  <script>
-    // Generate the calendar for the current month
-    const generateCalendar = (month, year) => {
-        const calendarContainer = document.getElementById('calendar');
-        calendarContainer.innerHTML = ''; // Clear previous calendar
+<script>
+  let storedEvents = JSON.parse(localStorage.getItem('events')) || [];
 
-        const firstDay = new Date(year, month, 1);
-        const lastDay = new Date(year, month + 1, 0);
-        
-        const daysInMonth = lastDay.getDate();
-        const firstWeekday = firstDay.getDay();
-        
-        // Fill empty spaces before the first day of the month
-        for (let i = 0; i < firstWeekday; i++) {
-            const emptyDay = document.createElement('div');
-            emptyDay.classList.add('day');
-            calendarContainer.appendChild(emptyDay);
-        }
+  const generateCalendar = (month, year) => {
+    const calendarContainer = document.querySelector('.calendar-container');
+    calendarContainer.innerHTML = '';
+    
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    
+    const daysInMonth = lastDay.getDate();
+    const firstWeekday = firstDay.getDay();
+    
+    for (let i = 0; i < firstWeekday; i++) {
+      const emptyDay = document.createElement('div');
+      emptyDay.classList.add('day');
+      calendarContainer.appendChild(emptyDay);
+    }
+    
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.classList.add('day');
+      dayDiv.textContent = day;
 
-        // Add each day in the month
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dayDiv = document.createElement('div');
-            dayDiv.classList.add('day');
-            dayDiv.textContent = day;
+      const eventsContainer = document.createElement('div');
+      eventsContainer.classList.add('events');
+      dayDiv.appendChild(eventsContainer);
 
-            // Add a container for events on this day
-            const eventsContainer = document.createElement('div');
-            eventsContainer.classList.add('events');
-            dayDiv.appendChild(eventsContainer);
+      dayDiv.setAttribute('data-date', `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+      calendarContainer.appendChild(dayDiv);
+    }
 
-            // Store the date (for adding events later)
-            dayDiv.setAttribute('data-date', `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+    storedEvents.forEach(event => {
+      const dayDiv = document.querySelector(`.calendar-container .day[data-date="${event.date}"]`);
+      if (dayDiv) {
+        const eventsContainer = dayDiv.querySelector('.events');
 
-            calendarContainer.appendChild(dayDiv);
-        }
-    };
+        const eventMark = document.createElement('div');
+        eventMark.classList.add('event-mark');
+        const tooltip = document.createElement('div');
+        tooltip.classList.add('event-tooltip');
+        tooltip.textContent = `${event.title}: ${event.description}`;
+        eventMark.appendChild(tooltip);
 
-    // Event handler for adding new events dynamically
-    const addEvent = (event) => {
-        event.preventDefault();
-        
-        const title = document.getElementById('eventTitle').value;
-        const date = document.getElementById('eventDate').value;
-        const description = document.getElementById('eventDescription').value;
-        
-        // Make sure the date is in the correct format (YYYY-MM-DD)
-        const formattedDate = date; // Since the input type date gives us the date in the correct format
-        
-        // Get the correct day based on the selected date
-        const dayDiv = document.querySelector(`[data-date="${formattedDate}"]`);
-        
-        if (dayDiv) {
-            // Create a red mark to indicate an event
-            const eventMark = document.createElement('div');
-            eventMark.classList.add('event-mark');
+        eventsContainer.appendChild(eventMark);
+      }
+    });
+  };
 
-            // Create a tooltip to show the event description on hover
-            const eventTooltip = document.createElement('div');
-            eventTooltip.classList.add('event-tooltip');
-            eventTooltip.textContent = description;
+  const addEvent = (event) => {
+    event.preventDefault();
 
-            // Append the tooltip to the event mark
-            eventMark.appendChild(eventTooltip);
-            dayDiv.querySelector('.events').appendChild(eventMark);
-        }
+    const title = document.getElementById('eventTitle').value;
+    const date = document.getElementById('eventDate').value;
+    const description = document.getElementById('eventDescription').value;
+    const reminderDate = document.getElementById('eventReminderDate').value;
 
-        // Clear the form
-        document.getElementById('eventForm').reset();
-    };
+    const newEvent = { title, date, description, reminderDate };
+    storedEvents.push(newEvent);
+    localStorage.setItem('events', JSON.stringify(storedEvents));
 
-    // Initialize the calendar for the current month and year
-    const initCalendar = () => {
-        const today = new Date();
-        generateCalendar(today.getMonth(), today.getFullYear());
-    };
+    const dayDiv = document.querySelector(`.calendar-container .day[data-date="${date}"]`);
+    const eventsContainer = dayDiv.querySelector('.events');
 
-    // Set up event listener for adding events
-    document.getElementById('eventForm').addEventListener('submit', addEvent);
+    const eventMark = document.createElement('div');
+    eventMark.classList.add('event-mark');
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('event-tooltip');
+    tooltip.textContent = `${title}: ${description}`;
+    eventMark.appendChild(tooltip);
 
-    // Initialize calendar on page load
-    window.onload = initCalendar;
-  </script>
+    eventsContainer.appendChild(eventMark);
+
+    document.getElementById('eventForm').reset();
+  };
+
+  const today = new Date();
+  generateCalendar(today.getMonth(), today.getFullYear());
+
+  document.getElementById('eventForm').addEventListener('submit', addEvent);
+</script>
 </body>
 </html>
