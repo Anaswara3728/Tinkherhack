@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - HomeSphere</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f7e5d4] flex items-center justify-center min-h-screen">
+  <!-- Flex container for logo and login card -->
+  <div class="flex items-center justify-between w-full max-w-screen-lg px-8">
+    
+    <!-- Logo Section -->
+    <div class="md:block w-1/2 -ml-16">
+      <img src="logo.png" alt="HomeSphere Logo" class="w-full h-auto">
+    </div>
+    
+    <!-- Login Card Section -->
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
+      <h1 class="text-2xl font-bold text-center" style="color: #994d00
+
+;">Welcome Back to HomeSphere</h1>
+      <form action="Login.php" method="POST" class="mt-6">
+        <!-- Username -->
+        <div class="mb-4">
+          <label for="username" class="block text-gray-700 font-medium mb-2">Username</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            required 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#994d00]"
+            placeholder="Enter your username"
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-6">
+          <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            required 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#994d00]"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="w-full py-2 rounded-lg text-white" 
+          style="background-color: #994d00;"
+         onclick="window.location.href = 'Homepage.html';">
+         
+          Login
+        </button>
+      </form>
+
+      <!-- Additional Links -->
+      <div class="mt-4 text-center">
+        <p class="text-gray-600 text-sm">
+          Don't have an account? 
+          <a href="/signup" class="hover:underline" style="color: #994d00;">Sign up</a>
+        </p>
+        <p class="text-gray-600 text-sm mt-2">
+          Forgot your password? 
+          <a href="/forgot-password" class="hover:underline" style="color: #994d00;">Reset it</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
