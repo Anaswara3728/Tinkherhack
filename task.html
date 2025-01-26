@@ -25,7 +25,7 @@
         taskItem.classList.add("flex", "items-center", "justify-between", "p-4", "border", "border-gray-200", "rounded-lg");
 
         // Add checkbox and task name
-        taskItem.innerHTML = `
+        taskItem.innerHTML = ` 
           <div class="flex items-center space-x-2">
             <input type="checkbox" class="w-4 h-4 text-[#994d00]" />
             <label class="text-gray-700">${task}</label>
@@ -47,8 +47,7 @@
 </head>
 <body class="bg-[#f7e5d4] min-h-screen">
 
-  <!-- Navbar -->
-    <nav style="background-color: #994d00;" class="text-white p-4">
+  <nav style="background-color: #994d00;" class="text-white p-4">
     <div class="container mx-auto flex justify-between items-center">
         <!-- Logo and Title -->
         <div class="flex items-center">
@@ -60,7 +59,7 @@
             <a href="Homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
             <a href="task.html" class="px-3 py-2 hover:opacity-80 rounded">Tasks</a>
             <a href="finance.html" class="px-3 py-2 hover:opacity-80 rounded">Finance</a>
-            <a href="#profile" class="px-3 py-2 hover:opacity-80 rounded">Profile</a>
+           
         </div>
     </div>
 </nav>
@@ -112,24 +111,7 @@
 
       <!-- Task List -->
       <div id="taskList" class="space-y-4">
-        <!-- Example Task -->
-        <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-          <div class="flex items-center space-x-2">
-            <input type="checkbox" class="w-4 h-4 text-[#994d00]" />
-            <label class="text-gray-700">Take out the trash</label>
-          </div>
-          <div class="text-gray-500">Assigned to: John</div>
-        </div>
-
-        <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-          <div class="flex items-center space-x-2">
-            <input type="checkbox" class="w-4 h-4 text-[#994d00]" />
-            <label class="text-gray-700">Wash the dishes</label>
-          </div>
-          <div class="text-gray-500">Assigned to: Emma</div>
-        </div>
-
-        <!-- More tasks can be dynamically added here -->
+        <!-- Dynamically added tasks will appear here -->
       </div>
     </div>
 
