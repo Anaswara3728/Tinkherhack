@@ -9,6 +9,7 @@
   Member 3 : S K Sneha - TKMCE
 
 **Hosted Project Link**
+https://anaswara3728.github.io/Tinkherhack/
 
 **Project Discription**
 HomeSphere is an innovative family management website designed to simplify household organization and foster collaboration among family members. The platform offers features like meal planning, allowing families to plan daily meals efficiently; an event calendar to track important dates like birthdays and school meetings; finance management tools to monitor budgets and expenses; and task sharing and assigning to ensure household chores are distributed effectively. HomeSphere empowers families to stay connected, organized, and stress-free by combining all essential tools into one user-friendly platform.
