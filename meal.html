@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal Planner - HomeSphere</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+
+ <script>
+  // JavaScript to dynamically add meals to the table
+  function addMeal(event) {
+    event.preventDefault();
+
+    const day = document.getElementById("day").value;
+    const mealType = document.getElementById("mealType").value;
+    const meal = document.getElementById("meal").value;
+
+    if (!day || !mealType || !meal) {
+      alert("Please fill all fields.");
+      return;
+    }
+
+    // Correctly construct the cell ID
+    const cellId = `${day}-${mealType}`;
+    const cell = document.getElementById(cellId);
+
+    if (cell) {
+      cell.innerHTML = `
+        <div class="flex justify-between items-center">
+          <span>${meal}</span>
+          <button class="text-red-500 text-sm" onclick="removeMeal('${cellId}')">Remove</button>
+        </div>`;
+    }
+
+    // Clear the input fields
+    document.getElementById("mealForm").reset();
+  }
+
+  // Function to remove a meal
+  function removeMeal(cellId) {
+    const cell = document.getElementById(cellId);
+    if (cell) {
+      cell.innerHTML = "";
+    }
+  }
+</script>
+
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Navbar -->
+  <nav style="background-color: #994d00;" class="text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <img src="logo.png" alt="HomeSphere Logo" class="w-12 h-12 mr-2">
+        <h1 class="text-2xl font-bold">HomeSphere</h1>
+      </div>
+      <div>
+        <a href="homepage.html" class="px-3 py-2 hover:opacity-80 rounded">Home</a>
+       
+        <a href="dashboard.html" class="px-3 py-2 hover:opacity-80 rounded">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Meal Planner Section -->
+  <section class="py-10">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-6">Meal Planner</h2>
+      <div class="bg-white p-6 rounded shadow-md">
+        <!-- Meal Plan Table -->
+        <table class="table-auto w-full border-collapse border border-gray-300 mb-6">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="border border-gray-300 px-4 py-2">Day</th>
+              <th class="border border-gray-300 px-4 py-2">Breakfast</th>
+              <th class="border border-gray-300 px-4 py-2">Lunch</th>
+              <th class="border border-gray-300 px-4 py-2">Dinner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows for each day -->
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Monday</td>
+              <td id="Monday-Breakfast" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Monday-Lunch" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Monday-Dinner" class="border border-gray-300 px-4 py-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Tuesday</td>
+              <td id="Tuesday-Breakfast" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Tuesday-Lunch" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Tuesday-Dinner" class="border border-gray-300 px-4 py-2"></td>
+            </tr>
+            <!-- Repeat for all days -->
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Wednesday</td>
+              <td id="Wednesday-Breakfast" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Wednesday-Lunch" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Wednesday-Dinner" class="border border-gray-300 px-4 py-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Thursday</td>
+              <td id="Thursday-Breakfast" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Thursday-Lunch" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Thursday-Dinner" class="border border-gray-300 px-4 py-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Friday</td>
+              <td id="Friday-Breakfast" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Friday-Lunch" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Friday-Dinner" class="border border-gray-300 px-4 py-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Saturday</td>
+              <td id="Saturday-Breakfast" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Saturday-Lunch" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Saturday-Dinner" class="border border-gray-300 px-4 py-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">Sunday</td>
+              <td id="Sunday-Breakfast" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Sunday-Lunch" class="border border-gray-300 px-4 py-2"></td>
+              <td id="Sunday-Dinner" class="border border-gray-300 px-4 py-2"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Meal Form -->
+        <form id="mealForm" onsubmit="addMeal(event)" class="flex flex-col space-y-4">
+          <div class="flex space-x-4">
+            <select id="day" class="border border-gray-300 p-2 rounded w-1/3" required>
+              <option value="" disabled selected>Select Day</option>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </select>
+            <select id="mealType" class="border border-gray-300 p-2 rounded w-1/3" required>
+              <option value="" disabled selected>Select Meal Type</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Lunch">Lunch</option>
+              <option value="Dinner">Dinner</option>
+            </select>
+            <input type="text" id="meal" class="border border-gray-300 p-2 rounded w-1/3" placeholder="Meal Description" required />
+          </div>
+          <button style="background-color:#994d00;" class="text-white px-6 py-2 rounded hover:bg-blue-700">Add Meal</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
